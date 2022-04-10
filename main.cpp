@@ -1,4 +1,4 @@
-// Part One: Bytes to hex table
+//Bytes to hex table
 #include <iostream>
 #include <fstream>
 #include <vector>
