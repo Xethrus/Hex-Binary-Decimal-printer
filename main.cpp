@@ -1,10 +1,11 @@
-//Bytes to hex table
+// Part One: Bytes to hex table
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <iterator>
 #include <iomanip>
 #include <bitset>
+#include <climits>
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +16,7 @@ int main(int argc, char *argv[])
     }
     std::ifstream inFile;
     const int BUFFER_SIZE = 100;
-    char buffer[BUFFER_SIZE];
+    unsigned char buffer[BUFFER_SIZE];
     inFile.open(argv[1], std::ios::in | std::ios::binary);
     if (!inFile)
     {
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
     std::cout << "|---------------------+-------------+-------------------------------------+-----------------|" << std::endl;
     while (reading)
     {
-        inFile.read(buffer, BUFFER_SIZE);
+        inFile.read(reinterpret_cast<char*>(buffer), BUFFER_SIZE);
         if (!inFile)
         {
             reading = false;
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    std::cout << std::setw(0) << " \\x" << std::hex << std::setw(2) << std::setfill('0') << (int)buffer[byteCounter + i];
+                    std::cout << std::setw(0) << " \\x" << std::hex << std::setw(2) << std::setfill('0') << static_cast<unsigned int>(buffer[byteCounter + i]);
                 }
             }
             std::cout << " |";
@@ -84,7 +85,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    std::cout << " " << std::hex << std::setw(2) << std::setfill('0') << (int)buffer[byteCounter + i];
+                    std::cout << " " << std::hex << std::setw(2) << std::setfill('0') << static_cast<unsigned int>(buffer[byteCounter + i]);
                 }
             }
             std::cout << " |";
@@ -108,7 +109,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    std::cout << " " << std::dec << std::setw(3) << std::setfill(' ') << (int)buffer[byteCounter + i];
+                    std::cout << " " << std::dec << std::setw(3) << std::setfill(' ') << static_cast<unsigned int>(buffer[byteCounter + i]);
                 }
             }
             std::cout << " |";
