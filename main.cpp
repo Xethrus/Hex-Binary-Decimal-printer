@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     outFile << "|---------------------+-------------+-------------------------------------+-----------------|" << std::endl;
     while (reading)
     {
-       
-        inFile.read(reinterpret_cast<char*>(buffer), BUFFER_SIZE);
+
+        inFile.read(reinterpret_cast<char *>(buffer), BUFFER_SIZE);
         if (!inFile)
         {
             reading = false;
@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
             outFile << "|";
             for (int i = 0; i < iterationSize; i++)
             {
+                char curentBufferChar = buffer[byteCounter + i];
                 if (byteCounter + i >= inFile.gcount())
                 {
                     std::cout << "     ";
@@ -63,30 +64,30 @@ int main(int argc, char *argv[])
 
                 std::cout << std::setw(5) << std::setfill(' ');
                 outFile << std::setw(5) << std::setfill(' ');
-                if (buffer[byteCounter + i] == ' ')
+                if (curentBufferChar == ' ')
                 {
                     std::cout << "' '";
                     outFile << "' '";
                 }
-                else if (buffer[byteCounter + i] == '\0')
+                else if (curentBufferChar == '\0')
                 {
                     std::cout << "\\0";
                     outFile << "\\0";
                 }
-                else if (buffer[byteCounter + i] == '\n')
+                else if (curentBufferChar == '\n')
                 {
                     std::cout << "\\n";
                     outFile << "\\n";
                 }
-                else if (buffer[byteCounter + i] == '\t')
+                else if (curentBufferChar == '\t')
                 {
                     std::cout << "\\t";
                     outFile << "\\t";
                 }
-                else if (isprint(buffer[byteCounter + i]))
+                else if (isprint(curentBufferChar))
                 {
-                    std::cout << buffer[byteCounter + i];
-                    outFile << buffer[byteCounter + i];
+                    std::cout << curentBufferChar;
+                    outFile << curentBufferChar;
                 }
                 else
                 {
